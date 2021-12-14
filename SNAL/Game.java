@@ -1,5 +1,6 @@
-import java.util.*;
-import java.io.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Game{
   private Queue<Player> playerQueue=new LinkedList<Player>();
@@ -11,8 +12,7 @@ public class Game{
     int finalDestination=board.getDestination();
     HashMap<Integer,Snakes> snakes=board.getSnakes();
     HashMap<Integer,Ladders> ladders=board.getLadders();
-    System.out.println(playerQueue.size());
-    while(playerQueue.size() != 1){
+    while(playerQueue.size() > 1){
       Player p=playerQueue.poll();
       int currpos=p.getLocation();
       int move=dice.throwDice();
@@ -38,13 +38,13 @@ public class Game{
         }
         p.setLocation(nextpos);
         p.setPath(nextpos);
-        if(nextpos==finalDestination){
+      }
+      if(p.getLocation()==finalDestination){
           System.out.println(p.getName()+" won the match.");
           p.getPath();
-        }
-        else{
+      }
+      else{
           playerQueue.add(p);
-        }
       }
     }
   }
